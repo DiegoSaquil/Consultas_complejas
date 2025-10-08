@@ -14,7 +14,7 @@ namespace Capa_Controlador_Consultas
         private readonly Sentencias _m;
         private readonly string _db;
 
-        private readonly Dictionary<string, List<(string Name, string DataType)>> _colsCache =
+        private readonly Dictionary<string, List<(string Name, string DataType)>> scolsCache =
             new Dictionary<string, List<(string Name, string DataType)>>(StringComparer.OrdinalIgnoreCase);
 
         public Controlador(string dsn, string db)
@@ -35,10 +35,10 @@ namespace Capa_Controlador_Consultas
         public List<(string Name, string DataType)> ObtenerColumnasTipadas(string tabla)
         {
             List<(string, string)> list;
-            if (!_colsCache.TryGetValue(tabla, out list))
+            if (!scolsCache.TryGetValue(tabla, out list))
             {
                 list = _m.ObtenerColumnasTipadas(tabla);
-                _colsCache[tabla] = list;
+                scolsCache[tabla] = list;
             }
             return list;
         }
